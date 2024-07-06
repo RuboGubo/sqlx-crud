@@ -212,7 +212,7 @@ fn build_sqlx_crud_impl(config: &Config) -> TokenStream2 {
         }
 
         #[automatically_derived]
-        impl<'e> #crate_name::traits::Crud<'e, <Self as TypeInfo>::Conn<'e>> for #ident {
+        impl<'e> #crate_name::traits::Crud<'e, <Self as rocket_crud::TypeInfo>::Conn<'e>> for #ident {
             fn insert_args(self) -> <#db_ty as ::sqlx::database::HasArguments<'e>>::Arguments {
                 use ::sqlx::Arguments as _;
                 let mut args = <#db_ty as ::sqlx::database::HasArguments<'e>>::Arguments::default();
