@@ -2,8 +2,8 @@
 members = [
   ".",
   "sqlx-crud-macros",
-  "examples/axum",
-  "examples/serenity",
+  # "examples/axum",
+  # "examples/serenity",
 ]
 
 [package]
@@ -21,19 +21,17 @@ authors = ["Trey Dempsey <trey.dempsey@gmail.com>"]
 
 [features]
 default = ["runtime-tokio-rustls"]
-runtime-actix-native-tls = ["sqlx/runtime-actix-native-tls"]
 runtime-async-std-native-tls = ["sqlx/runtime-async-std-native-tls"]
 runtime-tokio-native-tls = ["sqlx/runtime-tokio-native-tls"]
-runtime-actix-rustls = ["sqlx/runtime-actix-rustls"]
 runtime-async-std-rustls = ["sqlx/runtime-async-std-rustls"]
 runtime-tokio-rustls = ["sqlx/runtime-tokio-rustls"]
 
 [dependencies]
 futures = "0.3"
-sqlx = { version = "0.6" }
+sqlx = { version = "0.7" }
 sqlx-crud-macros = { version = "0.4", path = "sqlx-crud-macros" }
 thiserror = "1"
 
 [dev-dependencies]
-sqlx = { version = "0.6", features = ["runtime-tokio-rustls", "sqlite"] }
+sqlx = { version = "0.7", features = ["sqlite"] }
 tokio-test = "0"

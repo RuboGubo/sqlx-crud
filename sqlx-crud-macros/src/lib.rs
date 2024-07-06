@@ -5,8 +5,8 @@ use quote::{format_ident, quote};
 use syn::punctuated::Punctuated;
 use syn::token::Comma;
 use syn::{
-    parse_macro_input, Attribute, Data, DataStruct, DeriveInput, Expr, Field, Fields, FieldsNamed, Ident,
-    LitStr, Meta, MetaNameValue, Lit, ExprLit,
+    parse_macro_input, Attribute, Data, DataStruct, DeriveInput, Field, Fields, FieldsNamed, Ident,
+    LitStr,
 };
 
 #[proc_macro_derive(SqlxCrud, attributes(database, external_id, id))]
@@ -212,7 +212,7 @@ fn build_sqlx_crud_impl(config: &Config) -> TokenStream2 {
         }
 
         #[automatically_derived]
-        impl<'e> #crate_name::traits::Crud<'e, &'e ::sqlx::pool::Pool<#db_ty>> for #ident {
+        impl<'e> #crate_name::traits::Crud<'e, <Self as TypeInfo>::Conn<'e>> for #ident {
             fn insert_args(self) -> <#db_ty as ::sqlx::database::HasArguments<'e>>::Arguments {
                 use ::sqlx::Arguments as _;
                 let mut args = <#db_ty as ::sqlx::database::HasArguments<'e>>::Arguments::default();

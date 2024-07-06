@@ -305,7 +305,11 @@ where
     /// # }}
     /// ```
     fn delete(self, pool: E) -> CrudFut<'e, ()> {
-        let query = sqlx::query(<Self as Schema>::delete_by_id_sql()).bind(self.id());
+        Self::delete_by_id(self.id(), pool)
+    }
+
+    fn delete_by_id(id: <Self as Schema>::Id, pool: E) -> CrudFut<'e, ()> {
+        let query = sqlx::query(<Self as Schema>::delete_by_id_sql()).bind(id);
         Box::pin(query.execute(pool).and_then(|_| future::ok(())))
     }
 }
